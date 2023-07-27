@@ -260,6 +260,18 @@ func Path(p ...string) string {
 	return path.Join(elems...)
 }
 
+func GetBaseURLSubPath() string {
+	u, err := url.Parse(Config.BaseURL)
+	if err != nil {
+		return ""
+	}
+
+	path := u.Path
+	path = strings.TrimSuffix(path, "/")
+
+	return path
+}
+
 // Etc returns a path to a folder or file inside the /etc/ folder
 func Etc(p ...string) string {
 	paths := append([]string{"etc"}, p...)

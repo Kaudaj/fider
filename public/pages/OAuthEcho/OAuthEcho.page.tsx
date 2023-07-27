@@ -23,7 +23,7 @@ const warn = <Icon sprite={IconExclamation} className="h-4 text-yellow-500" />
 
 export default class OAuthEchoPage extends React.Component<OAuthEchoPageProps, any> {
   public componentDidMount() {
-    navigator.replaceState("/")
+    navigator.replaceState(".")
   }
 
   private renderError() {

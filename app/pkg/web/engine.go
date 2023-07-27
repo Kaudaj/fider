@@ -229,22 +229,22 @@ func (e *Engine) Use(middleware MiddlewareFunc) {
 
 // Get handles HTTP GET requests
 func (e *Engine) Get(path string, handler HandlerFunc) {
-	e.mux.Handle("GET", path, e.handle(e.middlewares, handler))
+	e.mux.Handle("GET", env.GetBaseURLSubPath() + path, e.handle(e.middlewares, handler))
 }
 
 // Post handles HTTP POST requests
 func (e *Engine) Post(path string, handler HandlerFunc) {
-	e.mux.Handle("POST", path, e.handle(e.middlewares, handler))
+	e.mux.Handle("POST", env.GetBaseURLSubPath() + path, e.handle(e.middlewares, handler))
 }
 
 // Put handles HTTP PUT requests
 func (e *Engine) Put(path string, handler HandlerFunc) {
-	e.mux.Handle("PUT", path, e.handle(e.middlewares, handler))
+	e.mux.Handle("PUT", env.GetBaseURLSubPath() + path, e.handle(e.middlewares, handler))
 }
 
 // Delete handles HTTP DELETE requests
 func (e *Engine) Delete(path string, handler HandlerFunc) {
-	e.mux.Handle("DELETE", path, e.handle(e.middlewares, handler))
+	e.mux.Handle("DELETE", env.GetBaseURLSubPath() + path, e.handle(e.middlewares, handler))
 }
 
 // NotFound register how to handle routes that are not found
@@ -293,22 +293,22 @@ func (g *Group) Use(middleware MiddlewareFunc) {
 
 // Get handles HTTP GET requests
 func (g *Group) Get(path string, handler HandlerFunc) {
-	g.engine.mux.Handle("GET", path, g.engine.handle(g.middlewares, handler))
+	g.engine.mux.Handle("GET", env.GetBaseURLSubPath() + path, g.engine.handle(g.middlewares, handler))
 }
 
 // Post handles HTTP POST requests
 func (g *Group) Post(path string, handler HandlerFunc) {
-	g.engine.mux.Handle("POST", path, g.engine.handle(g.middlewares, handler))
+	g.engine.mux.Handle("POST", env.GetBaseURLSubPath() + path, g.engine.handle(g.middlewares, handler))
 }
 
 // Put handles HTTP PUT requests
 func (g *Group) Put(path string, handler HandlerFunc) {
-	g.engine.mux.Handle("PUT", path, g.engine.handle(g.middlewares, handler))
+	g.engine.mux.Handle("PUT", env.GetBaseURLSubPath() + path, g.engine.handle(g.middlewares, handler))
 }
 
 // Delete handles HTTP DELETE requests
 func (g *Group) Delete(path string, handler HandlerFunc) {
-	g.engine.mux.Handle("DELETE", path, g.engine.handle(g.middlewares, handler))
+	g.engine.mux.Handle("DELETE", env.GetBaseURLSubPath() + path, g.engine.handle(g.middlewares, handler))
 }
 
 // Static return files from given folder
@@ -336,7 +336,7 @@ func (g *Group) Static(prefix, root string) {
 			return nil
 		}
 	}
-	g.engine.mux.Handle("GET", prefix, g.engine.handle(g.middlewares, h))
+	g.engine.mux.Handle("GET", env.GetBaseURLSubPath() + prefix, g.engine.handle(g.middlewares, h))
 }
 
 // ParseCookie return a list of cookie parsed from raw Set-Cookie

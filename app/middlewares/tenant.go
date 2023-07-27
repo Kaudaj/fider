@@ -76,7 +76,7 @@ func RequireTenant() web.MiddlewareFunc {
 			tenant := c.Tenant()
 			if tenant == nil {
 				if env.IsSingleHostMode() {
-					return c.Redirect("/signup")
+					return c.Redirect(env.GetBaseURLSubPath() + "/signup")
 				}
 				return c.NotFound()
 			}

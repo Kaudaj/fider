@@ -19,7 +19,7 @@ const CompleteSignInProfilePage = (props: CompleteSignInProfilePageProps) => {
   const submit = async () => {
     const result = await actions.completeProfile(props.kind, props.k, name)
     if (result.ok) {
-      location.href = "/"
+      location.href = "."
     } else if (result.error) {
       setError(result.error)
     }

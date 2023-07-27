@@ -19,7 +19,7 @@ export interface CreateTenantResponse {
 }
 
 export const createTenant = async (request: CreateTenantRequest): Promise<Result<CreateTenantResponse>> => {
-  return await http.post<CreateTenantResponse>("/_api/tenants", request)
+  return await http.post<CreateTenantResponse>("_api/tenants", request)
 }
 
 export interface UpdateTenantSettingsRequest {
@@ -32,37 +32,37 @@ export interface UpdateTenantSettingsRequest {
 }
 
 export const updateTenantSettings = async (request: UpdateTenantSettingsRequest): Promise<Result> => {
-  return await http.post("/_api/admin/settings/general", request)
+  return await http.post("_api/admin/settings/general", request)
 }
 
 export const updateTenantAdvancedSettings = async (customCSS: string): Promise<Result> => {
-  return await http.post("/_api/admin/settings/advanced", { customCSS })
+  return await http.post("_api/admin/settings/advanced", { customCSS })
 }
 
 export const updateTenantPrivacy = async (isPrivate: boolean): Promise<Result> => {
-  return await http.post("/_api/admin/settings/privacy", {
+  return await http.post("_api/admin/settings/privacy", {
     isPrivate,
   })
 }
 
 export const updateTenantEmailAuthAllowed = async (isEmailAuthAllowed: boolean): Promise<Result> => {
-  return await http.post("/_api/admin/settings/emailauth", {
+  return await http.post("_api/admin/settings/emailauth", {
     isEmailAuthAllowed,
   })
 }
 
 export const checkAvailability = async (subdomain: string): Promise<Result<CheckAvailabilityResponse>> => {
-  return await http.get<CheckAvailabilityResponse>(`/_api/tenants/${subdomain}/availability`)
+  return await http.get<CheckAvailabilityResponse>(`_api/tenants/${subdomain}/availability`)
 }
 
 export const signIn = async (email: string): Promise<Result> => {
-  return await http.post("/_api/signin", {
+  return await http.post("_api/signin", {
     email,
   })
 }
 
 export const completeProfile = async (kind: EmailVerificationKind, key: string, name: string): Promise<Result> => {
-  return await http.post("/_api/signin/complete", {
+  return await http.post("_api/signin/complete", {
     kind,
     key,
     name,
@@ -70,21 +70,21 @@ export const completeProfile = async (kind: EmailVerificationKind, key: string, 
 }
 
 export const changeUserRole = async (userID: number, role: UserRole): Promise<Result> => {
-  return await http.post(`/_api/admin/roles/${role}/users`, {
+  return await http.post(`_api/admin/roles/${role}/users`, {
     userID,
   })
 }
 
 export const blockUser = async (userID: number): Promise<Result> => {
-  return await http.put(`/_api/admin/users/${userID}/block`)
+  return await http.put(`_api/admin/users/${userID}/block`)
 }
 
 export const unblockUser = async (userID: number): Promise<Result> => {
-  return await http.delete(`/_api/admin/users/${userID}/block`)
+  return await http.delete(`_api/admin/users/${userID}/block`)
 }
 
 export const getOAuthConfig = async (provider: string): Promise<Result<OAuthConfig>> => {
-  return await http.get<OAuthConfig>(`/_api/admin/oauth/${provider}`)
+  return await http.get<OAuthConfig>(`_api/admin/oauth/${provider}`)
 }
 
 export interface CreateEditOAuthConfigRequest {
@@ -105,5 +105,5 @@ export interface CreateEditOAuthConfigRequest {
 }
 
 export const saveOAuthConfig = async (request: CreateEditOAuthConfigRequest): Promise<Result> => {
-  return await http.post("/_api/admin/oauth", request)
+  return await http.post("_api/admin/oauth", request)
 }

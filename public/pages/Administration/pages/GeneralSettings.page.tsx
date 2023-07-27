@@ -21,7 +21,7 @@ const GeneralSettingsPage = () => {
     const result = await actions.updateTenantSettings({ title, cname, welcomeMessage, invitation, logo, locale })
     if (result.ok) {
       e.preventEnable()
-      location.href = `/`
+      location.href = `.`
     } else if (result.error) {
       setError(result.error)
     }

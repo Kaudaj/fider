@@ -109,5 +109,5 @@ func (r *Request) BaseURL() string {
 		address += ":" + r.URL.Port()
 	}
 
-	return address
+	return address + env.GetBaseURLSubPath()
 }

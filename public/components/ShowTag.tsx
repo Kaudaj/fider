@@ -36,7 +36,7 @@ export const ShowTag = (props: TagProps) => {
 
   return (
     <a
-      href={props.link && props.tag.slug ? `/?tags=${props.tag.slug}` : undefined}
+      href={props.link && props.tag.slug ? `?tags=${props.tag.slug}` : undefined}
       title={`${props.tag.name}${props.tag.isPublic ? "" : " (Private)"}`}
       className={className}
       style={{

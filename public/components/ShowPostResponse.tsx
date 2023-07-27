@@ -16,7 +16,7 @@ const DuplicateDetails = (props: PostResponseProps): JSX.Element | null => {
   return (
     <div className="content">
       <span>&#8618;</span>{" "}
-      <a className="text-link" href={`/posts/${original.number}/${original.slug}`}>
+      <a className="text-link" href={`posts/${original.number}/${original.slug}`}>
         {original.title}
       </a>
     </div>

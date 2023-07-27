@@ -61,7 +61,7 @@ export const PostInput = (props: PostInputProps) => {
       if (result.ok) {
         clearError()
         cache.session.remove(CACHE_TITLE_KEY, CACHE_DESCRIPTION_KEY)
-        location.href = `/posts/${result.data.number}/${result.data.slug}`
+        location.href = `posts/${result.data.number}/${result.data.slug}`
         event.preventEnable()
       } else if (result.error) {
         setError(result.error)
