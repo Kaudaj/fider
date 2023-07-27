@@ -187,7 +187,7 @@ func (r *Renderer) Render(w io.Writer, statusCode int, props Props, ctx *Context
 		private["canonicalURL"] = canonicalURL
 	}
 
-	private["baseURL"] = env.Config.BaseURL
+	private["baseURL"] = ctx.Request.BaseURL()
 
 	oauthProviders := &query.ListActiveOAuthProviders{
 		Result: make([]*dto.OAuthProviderOption, 0),
