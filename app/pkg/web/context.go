@@ -507,7 +507,7 @@ func (c *Context) Redirect(url string) error {
 // PermanentRedirect the request to a provided URL
 func (c *Context) PermanentRedirect(url string) error {
 	c.Response.Header().Set("Cache-Control", "no-cache, no-store")
-	c.Response.Header().Set("Location", url)
+	c.Response.Header().Set("Location", env.GetBaseURLSubPath() + url)
 	c.Response.WriteHeader(http.StatusMovedPermanently)
 	return nil
 }
