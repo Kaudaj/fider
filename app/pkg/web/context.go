@@ -498,18 +498,58 @@ func (c *Context) NoContent(code int) error {
 
 // Redirect the request to a provided URL
 func (c *Context) Redirect(url string) error {
+	location, err := c.parseUrlForRedirect(url)
+
+	if (err != nil) {
+		return err
+	}
+
 	c.Response.Header().Set("Cache-Control", "no-cache, no-store")
-	c.Response.Header().Set("Location", env.GetBaseURLSubPath() + url)
+	c.Response.Header().Set("Location", location)
 	c.Response.WriteHeader(http.StatusTemporaryRedirect)
 	return nil
 }
 
 // PermanentRedirect the request to a provided URL
 func (c *Context) PermanentRedirect(url string) error {
+	location, err := c.parseUrlForRedirect(url)
+
+	if err != nil {
+		return err
+	}
+
 	c.Response.Header().Set("Cache-Control", "no-cache, no-store")
-	c.Response.Header().Set("Location", env.GetBaseURLSubPath() + url)
+	c.Response.Header().Set("Location", location)
 	c.Response.WriteHeader(http.StatusMovedPermanently)
 	return nil
+}
+
+func (c *Context) parseUrlForRedirect(rawurl string) (string, error) {
+	parsedUrl, err := url.Parse(rawurl)
+
+	if err != nil {
+		return "", err
+	}
+
+	baseUrlSubPath := env.GetBaseURLSubPath()
+
+	location := parsedUrl.String()
+	if !parsedUrl.IsAbs() && !strings.HasPrefix(location, baseUrlSubPath) {
+		location = baseUrlSubPath + location
+
+		return location, nil
+	}
+
+	parsedBaseUrl, err := url.Parse(env.Config.BaseURL)
+	if err != nil {
+		return "", err
+	}
+
+	if parsedUrl.Host == parsedBaseUrl.Host && !strings.HasPrefix(parsedUrl.Path, baseUrlSubPath) {
+		parsedUrl.Path = baseUrlSubPath + parsedUrl.Path
+	}
+
+	return parsedUrl.String(), nil
 }
 
 // SetCanonicalURL sets the canonical link on the HTTP Response Headers
