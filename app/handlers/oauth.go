@@ -15,6 +15,7 @@ import (
 
 	"github.com/getfider/fider/app/models/query"
 	"github.com/getfider/fider/app/pkg/bus"
+	"github.com/getfider/fider/app/pkg/env"
 
 	"github.com/getfider/fider/app"
 	"github.com/getfider/fider/app/pkg/errors"
@@ -180,8 +181,10 @@ func OAuthCallback() web.HandlerFunc {
 			return c.Redirect(redirectURL.String())
 		}
 
+		relativePath := strings.TrimPrefix(redirectURL.Path, env.GetBaseURLSubPath())
+
 		//Test OAuth
-		if redirectURL.Path == fmt.Sprintf("/oauth/%s/echo", provider) {
+		if relativePath == fmt.Sprintf("/oauth/%s/echo", provider) {
 			var query = redirectURL.Query()
 			query.Set("code", code)
 			query.Set("identifier", parts[1])
@@ -190,7 +193,7 @@ func OAuthCallback() web.HandlerFunc {
 		}
 
 		//Sign up process
-		if redirectURL.Path == "/signup" {
+		if relativePath == "/signup" {
 			oauthUser := &query.GetOAuthProfile{Provider: provider, Code: code}
 			if err := bus.Dispatch(c, oauthUser); err != nil {
 				return c.Failure(err)
